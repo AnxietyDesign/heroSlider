@@ -2,7 +2,10 @@
     $.fn.heroSlider = function (userOptions) {
         // User Configurable Options
         var options = $.extend({
-            slideContainer: '.heroSlide'
+            slideContainer: '.hero-slide',      // The name of the slide class
+            animationTime: 1000,                // The time it takes to complete the transition animation in milliseconds
+            slideDelay: 3000,                   // The amount of time it will show each slide in milliseconds
+            autoScroll: 1                       // If slides should automatically scroll by default
         }, userOptions),
 
             // Non customizable variables
@@ -15,10 +18,14 @@
         return this.each(function () {
             // Always use protection
             var $heroSlider = $(this),
+                autoScroll = options.autoScroll,
                 slides = $heroSlider.children(),
-                sliderWidth = slides.width(),
-                sliderHeight = slides.height(),
-                slideWrapper;
+                slideWidth = slides.width(),
+                slideHeight = slides.height(),
+                slideWrapper,
+                delayTimer,
+                nextButton,
+                previousButton;
 
             // Methods
             // Initialize
@@ -36,30 +43,115 @@
 
                 // Apply the slider css and wrap all the slides inside
                 $heroSlider.css({
-                    'width': sliderWidth,
-                    'height': sliderHeight,
+                    'width': slideWidth,
+                    'height': slideHeight,
                     'overflow': 'hidden'
-                }).wrapInner('<div class="heroSliderSlideWrapper" />');
+                }).wrapInner('<div class="hero-slider-slide-wrapper" />');
 
-                slideWrapper = $heroSlider.find('.heroSliderSlideWrapper');
+                slideWrapper = $heroSlider.find('.hero-slider-slide-wrapper');
+                // Apply some needed styles to the wrapper
+                slideWrapper.css({
+                    'height': slideHeight,
+                    'width': slideWidth * slideCount,
+                    'position': 'relative',
+                    'left': '0px',
+                    'float': 'left'
+                });
 
                 // Apply the slides CSS
                 slides.css({
                     'position': 'relative',
                     'float': 'left'
                 });
+
+                // Add the previous button
+                $heroSlider.append('<div id="hs-previous-button" />');
+                previousButton = $heroSlider.find('#hs-previous-button');
+                previousButton.css({
+                    'margin-left': -(slideWidth * slideCount),
+                    'display': 'none'
+                });
+
+                // Add the next button
+                $heroSlider.append('<div id="hs-next-button" />');
+                nextButton = $heroSlider.find('#hs-next-button');
+                nextButton.css({
+                    'margin-left': -(slideWidth * slideCount) + (slideWidth - nextButton.width()),
+                    'display': 'none'
+                });
+
+                // Bind the hover events for the carousel
+                $heroSlider.hover($heroSlider.showNav, $heroSlider.hideNav);
+
+                // Bind the click events for the buttons
+                nextButton.click(function () {
+                    autoScroll = 0;
+                    $heroSlider.nextSlide();
+                });
+
+                previousButton.click(function () {
+                    autoScroll = 0;
+                    $heroSlider.previousSlide();
+                });
+
+                // Initialize the timer
+                $heroSlider.resetTimer();
+            };
+
+            // Timer Expiry
+            $heroSlider.timerFinished = function () {
+                $heroSlider.nextSlide();
+            };
+
+            // Reset Timer
+            $heroSlider.resetTimer = function () {
+                delayTimer = setInterval($heroSlider.timerFinished, options.slideDelay);
+            };
+
+            // Show Navigation
+            $heroSlider.showNav = function () {
+                previousButton.stop(true, true).fadeIn('fast');
+                nextButton.stop(true, true).fadeIn('fast');
+            };
+
+            // Hide Navigation
+            $heroSlider.hideNav = function () {
+                previousButton.stop(true, true).fadeOut('fast');
+                nextButton.stop(true, true).fadeOut('fast');
+            };
+
+            // Next Slide
+            $heroSlider.nextSlide = function () {
+                currentSlide = currentSlide + 1;
+                if (currentSlide > slideCount) {
+                    currentSlide = 1;
+                }
+                $heroSlider.changeSlide(slides.eq(currentSlide - 1));
+                clearInterval(delayTimer);
+            };
+
+            // Previous Slide
+            $heroSlider.previousSlide = function () {
+                currentSlide = currentSlide - 1;
+                if (currentSlide < 1) {
+                    currentSlide = slideCount;
+                }
+                $heroSlider.changeSlide(slides.eq(currentSlide - 1));
+                clearInterval(delayTimer);
             };
 
             // Change a slide
             $heroSlider.changeSlide = function (destinationSlide) {
                 var pos = destinationSlide.position();
-                console.log(slideWrapper);
-                slideWrapper.animate({left: pos.left}, 5000, 'swing');
+                slideWrapper.stop().animate({left: -pos.left}, options.animationTime, 'swing', function () {
+                    if (autoScroll) {
+                        $heroSlider.resetTimer();
+                    }
+                });
             };
 
             // Spin it up!
             $heroSlider.init();
-            $heroSlider.changeSlide(slides.last());
         });
     };
 })(jQuery);

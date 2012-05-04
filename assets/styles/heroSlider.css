@@ -1,0 +1,26 @@
+/* Standard Next and Previous Buttons (Fully Cusotmizable!) */
+div#hs-previous-button, div#hs-next-button {
+    background-color: rgb(180, 180, 180); 
+    position: relative;
+    width: 50px;
+    height: 100%;
+    float: left;
+
+    /* Transparency */
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    /* IE 5-7 */
+    filter: alpha(opacity=30);
+    /* Netscape */
+    -moz-opacity: 0.3;
+    /* Safari 1.x */
+    -khtml-opacity: 0.3;
+    /* Good browsers */
+    opacity: 0.3;
+}
+
+/* Hover Next and Previous Buttons (Fully Cusotmizable!) */
+div#hs-previous-button:hover, div#hs-next-button:hover {
+    background-color: rgb(130, 130, 130);
+    cursor: pointer;
+}
