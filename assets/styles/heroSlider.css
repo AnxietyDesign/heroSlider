@@ -19,7 +19,7 @@ div#hs-previous-button, div#hs-next-button {
     opacity: 0.3;
 }
 
-/* Hover Next and Previous Buttons (Fully Cusotmizable!) */
+/* Hover Next and Previous Buttons (Fully Customizable!) */
 div#hs-previous-button:hover, div#hs-next-button:hover {
     background-color: rgb(130, 130, 130);
     cursor: pointer;

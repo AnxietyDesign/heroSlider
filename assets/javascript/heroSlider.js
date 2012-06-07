@@ -5,7 +5,8 @@
             slideContainer: '.hero-slide',      // The name of the slide class
             animationTime: 1000,                // The time it takes to complete the transition animation in milliseconds
             slideDelay: 3000,                   // The amount of time it will show each slide in milliseconds
-            autoScroll: 1                       // If slides should automatically scroll by default
+            autoScroll: 1,                      // If slides should automatically scroll by default
+            loop: 1                             // If you should be able to go from last to first and vice versa
         }, userOptions),
 
             // Non customizable variables
@@ -20,8 +21,8 @@
             var $heroSlider = $(this),
                 autoScroll = options.autoScroll,
                 slides = $heroSlider.children(),
-                slideWidth = slides.width(),
-                slideHeight = slides.height(),
+                slideWidth = $heroSlider.width(),
+                slideHeight = $heroSlider.height(),
                 slideWrapper,
                 delayTimer,
                 nextButton,
@@ -43,42 +44,28 @@
 
                 // Apply the slider css and wrap all the slides inside
                 $heroSlider.css({
-                    'width': slideWidth,
-                    'height': slideHeight,
                     'overflow': 'hidden'
-                }).wrapInner('<div class="hero-slider-slide-wrapper" />');
+                }).wrapInner('<div class="hs-slider-slide-wrapper" />');
 
-                slideWrapper = $heroSlider.find('.hero-slider-slide-wrapper');
+                slideWrapper = $heroSlider.find('.hs-slider-slide-wrapper');
                 // Apply some needed styles to the wrapper
-                slideWrapper.css({
-                    'height': slideHeight,
-                    'width': slideWidth * slideCount,
-                    'position': 'relative',
-                    'left': '0px',
-                    'float': 'left'
-                });
+                $heroSlider.setWrapperCSS();
+                //$heroSlider.resetWrapperPosition();
 
-                // Apply the slides CSS
-                slides.css({
-                    'position': 'relative',
-                    'float': 'left'
-                });
+                // Set the css for the slides
+                $heroSlider.setSlideCSS();
 
                 // Add the previous button
                 $heroSlider.append('<div id="hs-previous-button" />');
                 previousButton = $heroSlider.find('#hs-previous-button');
-                previousButton.css({
-                    'margin-left': -(slideWidth * slideCount),
-                    'display': 'none'
-                });
+                // Set the css for the previous button
+                $heroSlider.setPreviousButtonCSS();
 
                 // Add the next button
                 $heroSlider.append('<div id="hs-next-button" />');
                 nextButton = $heroSlider.find('#hs-next-button');
-                nextButton.css({
-                    'margin-left': -(slideWidth * slideCount) + (slideWidth - nextButton.width()),
-                    'display': 'none'
-                });
+                // Set the css for the prev button
+                $heroSlider.setNextButtonCSS();
 
                 // Bind the hover events for the carousel
                 $heroSlider.hover($heroSlider.showNav, $heroSlider.hideNav);
@@ -149,6 +136,63 @@
                     }
                 });
             };
+
+            // Set the css for the slides themselves
+            $heroSlider.setSlideCSS = function () {
+                slideWidth = $heroSlider.width();
+                slideHeight = $heroSlider.height();
+
+                // Apply the slides CSS
+                slides.css({
+                    'height': slideHeight,
+                    'width': slideWidth,
+                    'position': 'relative',
+                    'float': 'left'
+                });
+
+                slideWidth = $heroSlider.width();
+                slideHeight = $heroSlider.height();
+            };
+
+            // Set the CSS for the Wrapper
+            $heroSlider.setWrapperCSS = function () {
+                slideWrapper.css({
+                    'height': slideHeight,
+                    'width': slideWidth * slideCount,
+                    'position': 'relative',
+                    'float': 'left',
+                    'left': -((currentSlide - 1) * slideWidth)
+                });
+            };
+
+            // Resets the slides to slide one, we don't want to do this every resize
+            $heroSlider.resetWrapperPosition = function () {
+                slideWrapper.css({'left': '0px'});
+            };
+
+            // Set the CSS for the next button
+            $heroSlider.setNextButtonCSS = function () {
+                nextButton.css({
+                    'margin-left': -(slideWidth * slideCount) + (slideWidth - nextButton.width()),
+                    'display': 'none'
+                });
+            };
+
+            // Set the CSS for the previous button
+            $heroSlider.setPreviousButtonCSS = function () {
+                previousButton.css({
+                    'margin-left': -(slideWidth * slideCount),
+                    'display': 'none'
+                });
+            };
+
+            // Resize the slides on window size changing
+            $(window).resize(function () {
+                $heroSlider.setSlideCSS();
+                $heroSlider.setWrapperCSS();
+                $heroSlider.setPreviousButtonCSS();
+                $heroSlider.setNextButtonCSS();
+            });
 
             // Spin it up!
             $heroSlider.init();

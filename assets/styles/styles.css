@@ -1,5 +1,9 @@
+div#hero-slider {
+   width: 100%;
+   height: 300px;
+}
+
 div.hero-slide {
-    width: 980px; 
-    height: 100px;
     text-align: center;
 }
+
