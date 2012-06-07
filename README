@@ -1,25 +1,35 @@
-heroSlider v0.2a
+heroSlider v1.00
 
-This is currently an alpha version of the plugin and should be considered unusable until a beta version is released.
+What is heroSlider?
+heroSlider is an easy to use, fully customizable responsive slider which generally is used as a "Hero Unit" on a website. However heroSlider's customizability and scalability makes it a quick and easy solution for anything a designer may have in mind.
 
-Keep an eye on this page for a usable build.
+Why is it so awesome?
+heroSlider uses divs added consecutively on a page as the "slides", which means it supports any type of content or styling not just images. All you need to do is wrap the slide divs and add a bit of jquery to your page to get it running. heroSlider is also responsive right out of the box to support the new expectations of content on webpages.
+
+Current Features:
+    1. Supports any number of slides
+    2. Auto Scrolling options
+    3. Customizable speeds and delays
+    4. Sliding transition effects
+    5. Automatically added and customizable navigation buttons
+    6. Responsive design implementation
 
 Planned Features:
+    1. Auto-scroll timeout (And looping options)
+    2. Better UX options, (Pause on hover, "jump-to" bar)
+    3. More selection for transitions
+    4. Automatically added and customizable "jump-to" bar
+    5. Better button options (including enable/disable)
+    6. Parallax background scrolling for extra sexy scrollers
+    7. Better compatibility with older and mobile browsers
 
-Customize Scrolling Times:
-    Slide Delay            - Implemented
-    Auto-scroll timeout    
-    Auto-scroll disable    - Implemented
-    Pause on hover disable
+Installation Instructions:
+    A complete writeup with examples is coming soon. For now, put the code somewhere in your site and include it as necessary.
+    An example implementation has been included in the form of the styles.css, index.js and index.html page which you can use as a guide to implementing it on your own page.
+    The plugin files are in the heroSlider subdirectory, everything else is example implementation code.
+    Currently button css is fully customizable but is included in the heroSlider.css file.
 
-Customizable Transitions:
-    Choose from default transitions for all slides
-    
-Visuals:
-    Automatically added buttons                  - Implemented
-    Automatically added "jump-to" bar
-    Simple to modify css for customizing buttons - Implemented
-    Enable or disable jump to slide bar
-    Enable or disable buttons
-    Responsive Sizing for hero unit              - Implemented
-    Caption support and customizability
+ChangeLog:
+    June 7th 2012 - v1.00
+        - First working version, albeit a bit barebones.
+        - Reorganized structure of files from alpha version
