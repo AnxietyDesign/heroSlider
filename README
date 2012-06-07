@@ -7,19 +7,19 @@ Keep an eye on this page for a usable build.
 Planned Features:
 
 Customize Scrolling Times:
-    Delay for each slide
-    Auto-scroll timeout
-    Auto-scroll disable
+    Slide Delay            - Implemented
+    Auto-scroll timeout    
+    Auto-scroll disable    - Implemented
     Pause on hover disable
 
 Customizable Transitions:
     Choose from default transitions for all slides
-    Use different transitions for each slide with data-attributes
     
 Visuals:
-    Automatically added buttons and "jump-to" bars
-    Simple to modify css for customizing buttons
+    Automatically added buttons                  - Implemented
+    Automatically added "jump-to" bar
+    Simple to modify css for customizing buttons - Implemented
     Enable or disable jump to slide bar
-    Allow next / previous slides to be previewed
-    Responsive Sizing for hero unit
+    Enable or disable buttons
+    Responsive Sizing for hero unit              - Implemented
     Caption support and customizability
