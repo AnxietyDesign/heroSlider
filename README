@@ -4,7 +4,7 @@ What is heroSlider?
 heroSlider is an easy to use, fully customizable responsive slider which generally is used as a "Hero Unit" on a website. However heroSlider's customizability and scalability makes it a quick and easy solution for anything a designer may have in mind.
 
 Why is it so awesome?
-heroSlider uses divs added consecutively on a page as the "slides", which means it supports any type of content or styling not just images. All you need to do is wrap the slide divs and add a bit of jquery to your page to get it running. heroSlider is also responsive right out of the box to support the new expectations of content on webpages.
+heroSlider uses divs added consecutively on a page as the "slides", which means it supports any type of content or styling not just images. All you need to do is wrap the slide divs and add a bit of jquery to your page to get it running. heroSlider is also responsive right out of the box to support the new expectations of content on webpages. heroSlider also supports a wide range of options which can be passed in to the plugin to modify the plugin's behaviour.
 
 Current Features:
     1. Supports any number of slides
